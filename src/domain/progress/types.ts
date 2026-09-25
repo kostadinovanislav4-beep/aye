@@ -243,6 +243,9 @@ export type ProgressTables = {
 
 export type TableName = keyof ProgressTables
 
+/** Редовете на всички таблици — за бекъпа и тестовете. */
+export type TableRows = { [T in TableName]: ProgressTables[T][] }
+
 export const TABLE_NAMES = [
   'cards',
   'reviews',

@@ -1,8 +1,8 @@
 import Dexie from 'dexie'
 import { IDBFactory, IDBKeyRange } from 'fake-indexeddb'
 import { describe, expect, it } from 'vitest'
-import { T0, sampleRows, type TableRows } from '../domain/progress/fixtures'
-import { TABLE_NAMES } from '../domain/progress/types'
+import { T0, sampleRows } from '../domain/progress/fixtures'
+import { TABLE_NAMES, type TableRows } from '../domain/progress/types'
 import { DB_VERSION, SCHEMA, openDb, type AyeDb } from './db'
 
 const HOUR = 60 * 60_000

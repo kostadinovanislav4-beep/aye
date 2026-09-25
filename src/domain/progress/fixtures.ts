@@ -1,4 +1,4 @@
-import type { ProgressTables, TableName } from './types'
+import type { TableRows } from './types'
 
 /**
  * Примерни редове за всяка таблица — за тестовете на базата, миграциите и импорта.
@@ -7,8 +7,6 @@ import type { ProgressTables, TableName } from './types'
 export const T0 = Date.UTC(2026, 8, 25, 8, 0)
 const MINUTE = 60_000
 const DAY = 24 * 60 * MINUTE
-
-export type TableRows = { [T in TableName]: ProgressTables[T][] }
 
 export function sampleRows(): TableRows {
   return {
