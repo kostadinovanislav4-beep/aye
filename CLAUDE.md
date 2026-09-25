@@ -7,7 +7,7 @@
 
 ## Фази
 
-Текуща фаза: **0 — завършена на 25.09.2026** и проверена на iPhone. Следва **1 — Двигател**, но започва само когато потребителят каже. Първата стъпка е предложение за схемата на прогреса (Dexie) за одобрение.
+Текуща фаза: **1 — Двигател**, започната на 25.09.2026. Схемата на прогреса е одобрена (SPEC 4.2, `src/domain/progress/types.ts`). Фаза 0 е завършена на 25.09.2026 и проверена на iPhone.
 
 0 план и скеле · 1 двигател · 2 БЕЛ съдържание v1 · 3 CAE съдържание v1 · 4 практика и симулатор · 5 писане, слушане, говорене · 6 планер, аналитика, режими · 7 съдържание до минимумите · 8 шлифоване.
 
@@ -41,7 +41,7 @@
 
 ## Стек
 
-Vite 8, React 18.3 (фиксиран в SPEC), TypeScript 6.0, Tailwind CSS 4 (изисква iOS 16.4+), react-router-dom 7 с адреси с `#`, zustand 5, Dexie 4, zod 4, vite-plugin-pwa 1, lucide-react, Vitest 5, ESLint 9, Prettier. FSRS: `ts-fsrs` (от Фаза 1).
+Vite 8, React 18.3 (фиксиран в SPEC), TypeScript 6.0, Tailwind CSS 4 (изисква iOS 16.4+), react-router-dom 7 с адреси с `#`, zustand 5, Dexie 4, zod 4, vite-plugin-pwa 1, lucide-react, Vitest 5, ESLint 9, Prettier. FSRS: `ts-fsrs` 5. Тестовете на базата ползват `fake-indexeddb`.
 
 - TypeScript 7 и ESLint 10 още не се поддържат от typescript-eslint и eslint-plugin-jsx-a11y. Не ъпгрейдвай мажорни версии без проверка на съвместимостта.
 
@@ -79,3 +79,4 @@ GitHub Actions (`.github/workflows/deploy.yml`) при push към `main`: lint 
 
 - 24.09.2026 (Фаза 0): React 18 по SPEC; TypeScript 6.0 и ESLint 9 заради плъгините; адреси с `#` заради GitHub Pages и офлайн; PWA с `registerType: 'prompt'` (бутон „Обнови“); нов тип `mc_cloze` за CAE част 1; позициите при `edit_text` се задават с фрагменти; светла тема по подразбиране; Node и Git — преносими в `D:\tools`.
 - 25.09.2026 (Фаза 0): публикуване с GitHub CLI (`gh`); Pages е включен с източник GitHub Actions.
+- 25.09.2026 (Фаза 1): схема на прогреса — база `aye` с 8 таблици (`cards`, `reviews`, `attempts`, `errors`, `sessions`, `exams`, `writings`, `checks`); настройките остават в localStorage; нова карта няма ред до първата оценка; cram не мести графика; тетрадката пази грешките по части (`#g3`, `#q2`, `#e1`); учебният ден започва в 4:00; импортът слива и не трие.
