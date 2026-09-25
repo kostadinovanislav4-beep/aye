@@ -7,7 +7,7 @@
 
 ## Фази
 
-Текуща фаза: **0 — План и скеле.**
+Текуща фаза: **0 — завършена на 25.09.2026** (чака само проверка на iPhone). Следва **1 — Двигател**: първо предложи схемата на прогреса (Dexie) за одобрение.
 
 0 план и скеле · 1 двигател · 2 БЕЛ съдържание v1 · 3 CAE съдържание v1 · 4 практика и симулатор · 5 писане, слушане, говорене · 6 планер, аналитика, режими · 7 съдържание до минимумите · 8 шлифоване.
 
@@ -18,10 +18,12 @@
 
 ## Среда (Windows)
 
-- Node.js 24 и Git са преносими версии в `D:\tools\node` и `D:\tools\git` и **не са** в системния PATH. В PowerShell започвай командите с:
-  `$env:Path = 'D:\tools\node;D:\tools\git\cmd;' + $env:Path`
+- Node.js 24, Git и GitHub CLI са преносими версии в `D:\tools\node`, `D:\tools\git` и `D:\tools\gh` и **не са** в системния PATH. В PowerShell започвай командите с:
+  `$env:Path = 'D:\tools\node;D:\tools\git\cmd;D:\tools\gh\bin;' + $env:Path`
 - Ползвай `npm.cmd` и `npx.cmd` (PowerShell може да блокира `npm.ps1`).
-- Проектът е в `D:\aye`. Repo: `aye` в GitHub. Сайтът: `https://<потребител>.github.io/aye/`.
+- Проектът е в `D:\aye`. Repo: https://github.com/kostadinovanislav4-beep/aye. Сайтът: https://kostadinovanislav4-beep.github.io/aye/.
+- `gh` е влязъл като `kostadinovanislav4-beep` (токенът е в Windows Credential Manager). Само в това repo git взима достъпа от `gh auth git-credential` (`.git/config`). Commit-ите са с noreply адреса от GitHub (локален `user.email`).
+- Резултата от deploy следи с `gh run watch` (repo `kostadinovanislav4-beep/aye`).
 
 ## Команди
 
@@ -76,3 +78,4 @@ GitHub Actions (`.github/workflows/deploy.yml`) при push към `main`: lint 
 ## Решения
 
 - 24.09.2026 (Фаза 0): React 18 по SPEC; TypeScript 6.0 и ESLint 9 заради плъгините; адреси с `#` заради GitHub Pages и офлайн; PWA с `registerType: 'prompt'` (бутон „Обнови“); нов тип `mc_cloze` за CAE част 1; позициите при `edit_text` се задават с фрагменти; светла тема по подразбиране; Node и Git — преносими в `D:\tools`.
+- 25.09.2026 (Фаза 0): публикуване с GitHub CLI (`gh`); Pages е включен с източник GitHub Actions.

@@ -12,7 +12,7 @@
 - PWA: manifest на български, икони, офлайн кеш, бутон „Обнови“ при нова версия, подсказка за инсталиране на iPhone.
 - Схеми (zod) за всички 13 типа елементи, валидатор `npm run validate:content`, `content/README.md` с проверени примери, `content/tags.json` и `content/rubrics.json`.
 - Тестове (Vitest) за нормализирането на отговори, маркерите, схемите, валидатора, темата и разпознаването на iOS.
-- Deploy в GitHub Pages чрез GitHub Actions.
+- Deploy в GitHub Pages чрез GitHub Actions. Приложението е на https://kostadinovanislav4-beep.github.io/aye/.
 - `CLAUDE.md`, `README.md`, `content/SOURCES.md`.
 
 ### Решения

@@ -2,7 +2,7 @@
 
 Лично приложение за подготовка за ДЗИ по български език и литература и за Cambridge C1 Advanced. Работи офлайн, инсталира се на телефона, а всички данни стоят на устройството.
 
-- Приложението: `https://<потребител>.github.io/aye/` (след първия deploy)
+- Приложението: https://kostadinovanislav4-beep.github.io/aye/
 - Заданието: [SPEC.md](SPEC.md) · Правилата за Claude: [CLAUDE.md](CLAUDE.md) · Промени: [CHANGELOG.md](CHANGELOG.md) · Съдържание: [content/README.md](content/README.md)
 
 ## Инсталиране на iPhone
