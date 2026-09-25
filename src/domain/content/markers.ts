@@ -36,6 +36,17 @@ export function parseCloze(text: string): ClozeDeletion[] {
   }))
 }
 
+/** Къде е n-тото срещане (от 1) на фрагмента в текста; -1, ако няма толкова срещания. */
+export function findFragment(text: string, fragment: string, occurrence = 1): number {
+  if (fragment === '') return -1
+  let from = 0
+  for (let found = 1; ; found += 1) {
+    const at = text.indexOf(fragment, from)
+    if (at < 0 || found === occurrence) return at
+    from = at + fragment.length
+  }
+}
+
 /** Остават ли {{ или }} извън правилните изтривания — знак за грешка в синтаксиса. */
 export function hasStrayClozeBraces(text: string): boolean {
   return /\{\{|\}\}/.test(text.replace(CLOZE, ''))

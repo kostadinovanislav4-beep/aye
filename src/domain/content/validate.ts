@@ -3,6 +3,7 @@ import {
   checkGapMarkers,
   containsWord,
   countKwtWords,
+  findFragment,
   gapNumbers,
   hasStrayClozeBraces,
   parseCloze,
@@ -184,25 +185,12 @@ function checkGapText(text: string, count: number, f: Findings): void {
   if (problem) f.errors.push(problem)
 }
 
-function nthIndexOf(haystack: string, needle: string, n: number): number {
-  let from = 0
-  let found = 0
-  while (found < n) {
-    const at = haystack.indexOf(needle, from)
-    if (at < 0) return -1
-    found += 1
-    if (found === n) return at
-    from = at + needle.length
-  }
-  return -1
-}
-
 function checkEditText(item: ItemOfType<'edit_text'>, ctx: Context, f: Findings): void {
   const spans: { start: number; end: number; fragment: string }[] = []
   item.errors.forEach((error, i) => {
     const label = `Грешка ${i + 1}`
     const occurrence = error.occurrence ?? 1
-    const start = nthIndexOf(item.text, error.fragment, occurrence)
+    const start = findFragment(item.text, error.fragment, occurrence)
     if (start < 0) {
       const times = occurrence === 1 ? '' : ` ${occurrence} пъти`
       f.errors.push(`${label}: фрагментът „${error.fragment}“ не се среща${times} в текста.`)

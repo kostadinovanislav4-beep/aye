@@ -495,3 +495,4 @@ export const rubricsFileSchema = z.strictObject({
     )
     .min(1),
 })
+export type Rubric = z.infer<typeof rubricsFileSchema>['rubrics'][number]
