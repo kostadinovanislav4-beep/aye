@@ -127,7 +127,9 @@ export default function FlashcardsPage() {
             {decks.map((deck) => {
               const counts = countCards(deckCardIds(deck), snapshot.seen, snapshot.due)
               const scope: SessionScope = { decks: [deck.id] }
-              const pending = counts.due + counts.new + counts.learning > 0
+              // Дневните лимити са общи: когато са изпълнени, колодата няма какво да даде днес.
+              const left = remainingToday(counts, limits, snapshot.done)
+              const pending = left.new + left.reviews + left.learning > 0
               return (
                 <li key={deck.id} className="rounded-3xl border border-border bg-surface p-4">
                   <div className="flex items-start gap-3">
@@ -137,6 +139,11 @@ export default function FlashcardsPage() {
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold">{deck.title}</p>
                       <CountsLine counts={counts} />
+                      {!pending && counts.new > 0 && (
+                        <p className="text-sm text-muted">
+                          Днешният лимит за нови карти е изпълнен.
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
