@@ -127,6 +127,8 @@ export type UndoEntry = {
   /** Картата преди оценката; null — картата е била нова. */
   before: CardRecord | null
   position: number
+  /** Опашката преди оценката — в cram сгрешената карта се връща в нея. */
+  queue?: string[]
 }
 
 export type SessionStats = {

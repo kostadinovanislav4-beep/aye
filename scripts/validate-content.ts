@@ -4,28 +4,13 @@
  * content/<изпит>/ са служебни (tags.json, rubrics.json, program.json…).
  * Грешка → код 1. Предупрежденията не спират проверката.
  */
-import { readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import {
   validateContent,
   type ContentFile,
   type ValidationIssue,
 } from '../src/domain/content/validate'
-
-const CONTENT_DIR = 'content'
-const EXAM_DIRS = new Set(['bel', 'cae'])
-
-const toPosix = (file: string) => file.split(path.sep).join('/')
-
-async function readJson(file: string): Promise<ContentFile> {
-  const raw = await readFile(file, 'utf8')
-  return { path: toPosix(file), data: JSON.parse(raw.replace(/^\u{FEFF}/u, '')) as unknown }
-}
-
-function isDeckPath(relative: string): boolean {
-  const parts = relative.split(/[\\/]/)
-  return parts.length >= 3 && EXAM_DIRS.has(parts[0] ?? '') && relative.endsWith('.json')
-}
+import { CONTENT_DIR, deckPaths, readJson, toPosix } from './content-files'
 
 function printIssues(issues: readonly ValidationIssue[]): void {
   const byFile = new Map<string, ValidationIssue[]>()
@@ -40,15 +25,9 @@ function printIssues(issues: readonly ValidationIssue[]): void {
 }
 
 async function main(): Promise<number> {
-  const entries = await readdir(CONTENT_DIR, { recursive: true })
-  const deckPaths = entries
-    .filter(isDeckPath)
-    .map((relative) => path.join(CONTENT_DIR, relative))
-    .sort()
-
   const readErrors: ValidationIssue[] = []
   const decks: ContentFile[] = []
-  for (const file of deckPaths) {
+  for (const file of await deckPaths()) {
     try {
       decks.push(await readJson(file))
     } catch (error) {

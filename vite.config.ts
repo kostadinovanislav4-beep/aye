@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { contentCatalog } from './scripts/content-catalog.ts'
 
 // Приложението живее на https://<потребител>.github.io/aye/ — base е името на repo-то.
 const BASE = '/aye/'
@@ -15,6 +16,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    contentCatalog(),
     VitePWA({
       // Новата версия се включва чак след „Обнови“, за да не прекъсва учене.
       registerType: 'prompt',
