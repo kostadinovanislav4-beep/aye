@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/* Тъмната тема се включва с data-theme="dark" на <html> (виж useApplyTheme). */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * Цветови токени. Светлосиньото (accent) е основният цвят за фонове и акценти.
+ * Текст и икони върху светъл фон са в accent-strong, за да се четат добре (контраст ≥ 4.5:1).
+ */
+:root {
+  color-scheme: light;
+  --c-bg: #f4f8fd;
+  --c-surface: #ffffff;
+  --c-surface-2: #e8f2fc;
+  --c-border: #d5e3f2;
+  --c-text: #0e2640;
+  --c-muted: #4a6178;
+  --c-accent: #8ccbff;
+  --c-accent-soft: #e0f0ff;
+  --c-accent-strong: #1661a3;
+  --c-on-accent: #0e2640;
+  --c-focus: #2f95e8;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --c-bg: #0b1a2a;
+  --c-surface: #11263a;
+  --c-surface-2: #16304a;
+  --c-border: #23405c;
+  --c-text: #e6f1fb;
+  --c-muted: #9db4ca;
+  --c-accent: #8ccbff;
+  --c-accent-soft: #173a5c;
+  --c-accent-strong: #8ccbff;
+  --c-on-accent: #0e2640;
+  --c-focus: #8ccbff;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-border: var(--c-border);
+  --color-text: var(--c-text);
+  --color-muted: var(--c-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-accent-strong: var(--c-accent-strong);
+  --color-on-accent: var(--c-on-accent);
+  --color-focus: var(--c-focus);
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Отстъп за долната системна линия на iPhone. */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
