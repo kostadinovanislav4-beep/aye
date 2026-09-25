@@ -1,0 +1,74 @@
+{
+  "rubrics": [
+    {
+      "id": "bel-task41",
+      "exam": "bel",
+      "title": "Задача 41 — аргументативен текст (есе или интерпретативно съчинение)",
+      "criteria": [
+        {
+          "id": "I",
+          "group": "I. Литературни и интерпретативни компетентности",
+          "name": "Литературни и интерпретативни компетентности",
+          "max": 10
+        },
+        {
+          "id": "II.1",
+          "group": "II. Изграждане на аргументативен текст",
+          "name": "Теза",
+          "max": 3
+        },
+        {
+          "id": "II.2",
+          "group": "II. Изграждане на аргументативен текст",
+          "name": "Аргументация",
+          "max": 3
+        },
+        {
+          "id": "II.3",
+          "group": "II. Изграждане на аргументативен текст",
+          "name": "Логическа последователност",
+          "max": 3
+        },
+        {
+          "id": "II.4",
+          "group": "II. Изграждане на аргументативен текст",
+          "name": "Композиция: увод, изложение, заключение",
+          "max": 3
+        },
+        { "id": "III.1", "group": "III. Езикови норми", "name": "Лексикална норма", "max": 2 },
+        { "id": "III.2", "group": "III. Езикови норми", "name": "Граматична норма", "max": 2 },
+        { "id": "III.3", "group": "III. Езикови норми", "name": "Правописна норма", "max": 2 },
+        { "id": "III.4", "group": "III. Езикови норми", "name": "Пунктуационна норма", "max": 2 }
+      ],
+      "source": "SPEC.md, раздел 5.5. Предстои сверяване с актуалния документ на МОН.",
+      "verified": false
+    },
+    {
+      "id": "cae-writing",
+      "exam": "cae",
+      "title": "C1 Advanced Writing",
+      "criteria": [
+        { "id": "content", "name": "Content", "max": 5 },
+        { "id": "communicative-achievement", "name": "Communicative Achievement", "max": 5 },
+        { "id": "organisation", "name": "Organisation", "max": 5 },
+        { "id": "language", "name": "Language", "max": 5 }
+      ],
+      "source": "SPEC.md, раздел 5.5. Предстои сверяване с handbook-а за C1 Advanced.",
+      "verified": false
+    },
+    {
+      "id": "cae-speaking",
+      "exam": "cae",
+      "title": "C1 Advanced Speaking",
+      "criteria": [
+        { "id": "grammatical-resource", "name": "Grammatical Resource", "max": 5 },
+        { "id": "lexical-resource", "name": "Lexical Resource", "max": 5 },
+        { "id": "discourse-management", "name": "Discourse Management", "max": 5 },
+        { "id": "pronunciation", "name": "Pronunciation", "max": 5 },
+        { "id": "interactive-communication", "name": "Interactive Communication", "max": 5 }
+      ],
+      "source": "SPEC.md, раздел 5.6. Предстои сверяване с handbook-а за C1 Advanced.",
+      "verified": false
+    }
+  ]
+}
