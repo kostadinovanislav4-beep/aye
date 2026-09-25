@@ -7,7 +7,7 @@
 
 ## Фази
 
-Текуща фаза: **1 — Двигател**, започната на 25.09.2026. Схемата на прогреса е одобрена (SPEC 4.2, `src/domain/progress/types.ts`). Фаза 0 е завършена на 25.09.2026 и проверена на iPhone.
+Текуща фаза: **1 — завършена на 25.09.2026** (версия 0.2.0); предстои проверка на iPhone. Следва **2 — БЕЛ съдържание v1**, но започва само когато потребителят каже. Първата стъпка е `content/bel/program.json` по официалната програма от mon.bg.
 
 0 план и скеле · 1 двигател · 2 БЕЛ съдържание v1 · 3 CAE съдържание v1 · 4 практика и симулатор · 5 писане, слушане, говорене · 6 планер, аналитика, режими · 7 съдържание до минимумите · 8 шлифоване.
 
@@ -21,6 +21,7 @@
 - Node.js 24, Git и GitHub CLI са преносими версии в `D:\tools\node`, `D:\tools\git` и `D:\tools\gh` и **не са** в системния PATH. В PowerShell започвай командите с:
   `$env:Path = 'D:\tools\node;D:\tools\git\cmd;D:\tools\gh\bin;' + $env:Path`
 - Ползвай `npm.cmd` и `npx.cmd` (PowerShell може да блокира `npm.ps1`).
+- Не чети и не пиши файлове с `Get-Content`/`Set-Content` в Windows PowerShell 5.1 — без BOM те четат UTF-8 като ANSI и развалят кирилицата. За файлове ползвай инструментите Read/Edit/Write.
 - Проектът е в `D:\aye`. Repo: https://github.com/kostadinovanislav4-beep/aye. Сайтът: https://kostadinovanislav4-beep.github.io/aye/.
 - `gh` е влязъл като `kostadinovanislav4-beep` (токенът е в Windows Credential Manager). Само в това repo git взима достъпа от `gh auth git-credential` (`.git/config`). Commit-ите са с noreply адреса от GitHub (локален `user.email`).
 - Резултата от deploy следи с `gh run watch` (repo `kostadinovanislav4-beep/aye`).
@@ -48,6 +49,9 @@ Vite 8, React 18.3 (фиксиран в SPEC), TypeScript 6.0, Tailwind CSS 4 (�
 ## Код
 
 - `src/domain/` — чиста логика без React и без DOM (типовете се проверяват и в Node проекта). `src/data/` — Dexie и localStorage. `src/features/<модул>/` — екрани. `src/components/` — общи компоненти. `src/app/` — обвивка, навигация, маршрути, PWA.
+- Прогрес: схемата е в `src/domain/progress/types.ts`, базата — в `src/data/db.ts` (`SCHEMA`; минала версия не се пипа — промяна е нова версия с миграция и тест), операциите — в `src/data/progress.ts` (всяка промяна по няколко таблици е в една транзакция).
+- Съдържание в приложението: каталогът е `virtual:aye/catalog` (`scripts/content-catalog.ts`), колодите се зареждат с `src/data/content.ts`. Файловете, които `vite.config.ts` зарежда, импортират с разширение `.ts`.
+- Оценители: `src/domain/eval/`; части `g1…` (празно място), `q1…` (въпрос), `e1…` (грешка при редактиране), `c1…` (изтриване в cloze).
 - TypeScript `strict` и `noUncheckedIndexedAccess`; без `any`. Малки компоненти. Простият код е за предпочитане пред „умния“.
 - Тестове (Vitest) за цялата домейн логика: оценители, планировчик, валидатор, миграции, генератор на варианти.
 - Всички GitHub Pages сайтове на потребителя споделят един origin, затова базата и ключовете в localStorage започват с `aye`.

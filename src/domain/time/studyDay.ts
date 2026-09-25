@@ -21,6 +21,11 @@ function parseDay(day: string): [number, number, number] {
   return [Number(match[1]), Number(match[2]), Number(match[3])]
 }
 
+/** Календарният ден на момента `at` по местно време — без правилото за 4:00. */
+export function calendarDay(at: number): string {
+  return formatDay(new Date(at))
+}
+
 /** Учебният ден на момента `at`. Между 0:00 и 4:00 е още предишният ден. */
 export function studyDay(at: number): string {
   const date = new Date(at)

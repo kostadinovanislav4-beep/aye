@@ -47,6 +47,25 @@ export function findFragment(text: string, fragment: string, occurrence = 1): nu
   }
 }
 
+export type ClozePiece = { text: string } | ClozeDeletion
+
+/** Текстът на cloze на парчета: обикновен текст и изтривания, по реда им. */
+export function splitCloze(text: string): ClozePiece[] {
+  const pieces: ClozePiece[] = []
+  let cursor = 0
+  for (const match of text.matchAll(CLOZE)) {
+    if (match.index > cursor) pieces.push({ text: text.slice(cursor, match.index) })
+    pieces.push({
+      index: Number(match[1]),
+      answer: match[2] ?? '',
+      ...(match[3] === undefined ? {} : { hint: match[3] }),
+    })
+    cursor = match.index + match[0].length
+  }
+  if (cursor < text.length) pieces.push({ text: text.slice(cursor) })
+  return pieces
+}
+
 /** Остават ли {{ или }} извън правилните изтривания — знак за грешка в синтаксиса. */
 export function hasStrayClozeBraces(text: string): boolean {
   return /\{\{|\}\}/.test(text.replace(CLOZE, ''))

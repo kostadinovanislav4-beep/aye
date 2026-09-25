@@ -21,7 +21,7 @@ import type {
 } from '../domain/progress/types'
 import { rateCard } from '../domain/srs/fsrs'
 import { countDoneToday, requeueAfterAgain, type DoneToday } from '../domain/srs/queue'
-import { studyDay, studyDayStart } from '../domain/time/studyDay'
+import { nextStudyDayStart, studyDay, studyDayStart } from '../domain/time/studyDay'
 import { db, type AyeDb } from './db'
 
 /*
@@ -60,6 +60,24 @@ export async function doneToday(now: number, database: AyeDb = db): Promise<Done
   return countDoneToday(reviews, now)
 }
 
+export type SrsSnapshot = {
+  /** Картите с ред в базата (невидените са нови). */
+  seen: Set<string>
+  /** Картите с падеж до края на учебния ден. */
+  due: Map<string, CardRecord>
+  done: DoneToday
+}
+
+/** Всичко за броенето на картите за деня — за таблото и за екрана с флашкарти. */
+export async function srsSnapshot(now: number, database: AyeDb = db): Promise<SrsSnapshot> {
+  const [seen, due, done] = await Promise.all([
+    seenCardIds(database),
+    cardsDueBefore(nextStudyDayStart(now), database),
+    doneToday(now, database),
+  ])
+  return { seen, due: new Map(due.map((row) => [row.id, row])), done }
+}
+
 // ——— Сесии ———
 
 async function activeSessions(mode: SessionMode, database: AyeDb): Promise<SessionRecord[]> {
@@ -90,6 +108,27 @@ export async function resumableSession(
       else await database.sessions.put(closed(session, now))
     }
     return found
+  })
+}
+
+/** Незавършените сесии от текущия учебен ден — само за четене (за живите заявки на екраните). */
+export async function openSessions(now: number, database: AyeDb = db): Promise<SessionRecord[]> {
+  const active = await database.sessions.where('status').equals('active').toArray()
+  return active.filter((session) => !isStale(session, now))
+}
+
+/** Прескача картата на текущото място в опашката (елементът е махнат от съдържанието). */
+export async function skipQueued(
+  sessionId: string,
+  now: number,
+  database: AyeDb = db,
+): Promise<SessionRecord | null> {
+  return database.transaction('rw', database.sessions, async () => {
+    const session = await database.sessions.get(sessionId)
+    if (!session) return null
+    const next = { ...session, position: session.position + 1, updatedAt: now }
+    await database.sessions.put(next)
+    return next
   })
 }
 
@@ -291,6 +330,10 @@ export async function recordAttempt(
 
 export function errorEntries(database: AyeDb = db): Promise<ErrorRecord[]> {
   return database.errors.toArray()
+}
+
+export function activeErrorCount(database: AyeDb = db): Promise<number> {
+  return database.errors.where('status').equals('active').count()
 }
 
 // ——— За проверка ———

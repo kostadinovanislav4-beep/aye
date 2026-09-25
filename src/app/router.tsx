@@ -22,6 +22,10 @@ export const router = createHashRouter([
     children: [
       { index: true, lazy: page(() => import('../features/dashboard/DashboardPage')) },
       { path: 'flashcards', lazy: page(() => import('../features/flashcards/FlashcardsPage')) },
+      {
+        path: 'flashcards/session',
+        lazy: page(() => import('../features/flashcards/SessionPage')),
+      },
       { path: 'practice', lazy: page(() => import('../features/practice/PracticePage')) },
       { path: 'exam', lazy: page(() => import('../features/exam/ExamPage')) },
       { path: 'writing', lazy: page(() => import('../features/writing/WritingPage')) },

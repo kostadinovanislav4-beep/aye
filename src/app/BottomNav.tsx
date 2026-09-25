@@ -41,11 +41,16 @@ function NavItem({ to, label, icon: Icon, end = false, highlight = false }: NavI
   )
 }
 
+/** Екрани, на които долу са бутоните за оценка вместо навигацията. */
+const FOCUS_PATHS = ['/flashcards/session']
+
 /** Долната лента на телефона. На лаптопа се ползва страничното меню. */
 export function BottomNav() {
   const { pathname } = useLocation()
   const inMore =
     pathname === '/more' || SECONDARY_MODULES.some((module) => pathname.startsWith(module.path))
+
+  if (FOCUS_PATHS.some((path) => pathname.startsWith(path))) return null
 
   return (
     <nav
